@@ -9,18 +9,24 @@
 <script lang="ts">
 
 import { defineComponent } from "vue";
+import { parse } from 'csv-parse/browser/esm/sync';
 
 export default defineComponent({
   setup() {
-    const csvData = ref();
+    const csvData = ref([]);
     const handleCsv = (event) => {
       if (event.target.files[0]) {
         const reader = new FileReader();
 
-        reader.onload = (e) => (csvData.value = e.target.result);
+        reader.onload = (e) => {
+          const parsed = parse(e.target.result.toString(), {
+            columns: true,
+            skip_empty_lines: true
+          });
+          csvData.value = parsed;
+        };
 
         reader.readAsText(event.target.files[0]);
-
       }
     };
 
