@@ -1,7 +1,6 @@
 <template>
   <div>
     <table class="table w-full">
-      <!-- head -->
       <thead>
         <tr>
           <th>Name</th>
@@ -10,7 +9,11 @@
       </thead>
       <tbody>
         <tr v-for="(data, name) in studentData" :key="name">
-          <td>{{ name }}</td>
+          <td>
+            <span @click="() => selectStudent(data, name)" class="link">
+              {{ name }}
+            </span>
+          </td>
           <td>{{ data }}</td>
         </tr>
       </tbody>
@@ -26,6 +29,18 @@ export default defineComponent({
     studentData: Object as PropType<Record<string, Record<string, string>[]>>,
   },
   setup(props) {
+    const selectStudent = (labRecords, studentName) => {
+      navigateTo({
+        path: '/student',
+        query: {
+          labRecords: JSON.stringify(labRecords),
+          studentName,
+        },
+      });
+    };
+
+    return { selectStudent };
+
   }
 });
 </script>
