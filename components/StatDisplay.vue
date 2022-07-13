@@ -19,7 +19,7 @@ type Stat = 'mean' | 'sd' | 'var';
 
 export default defineComponent({
   props: {
-    labRecords: { type: Array, required: true },
+    labRecords: { type: Array as PropType<Record<string, string>[]>, required: true },
     column: { type: String, required: true },
     stat: { type: String as PropType<Stat>, required: true },
   },

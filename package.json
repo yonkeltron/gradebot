@@ -15,6 +15,7 @@
     "dependencies": {
         "@types/lodash": "^4.14.182",
         "csv-parse": "^5.3.0",
+        "purify-ts": "^1.2.2",
         "simple-statistics": "^7.7.5",
         "ts-pattern": "^4.0.5"
     }

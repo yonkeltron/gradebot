@@ -1,7 +1,21 @@
 <template>
   <div>
-    <DataFileUploader @csv-uploaded="setCsvRows" />
-    <StudentsTable :student-data="studentData" />
+    <div v-if="csvRows.length === 0">
+      <DataFileUploader @csv-uploaded="setCsvRows" />
+    </div>
+    <section v-else class="grid grid-cols-2 gap-3">
+      <div>
+        <StudentsTable :student-data="studentData" />
+      </div>
+
+      <div>
+        <div class="stats shadow">
+          <StatDisplay stat="mean" column="Data" :lab-records="csvRows" />
+          <StatDisplay stat="sd" column="Data" :lab-records="csvRows" />
+          <StatDisplay stat="var" column="Data" :lab-records="csvRows" />
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
@@ -31,7 +45,7 @@ export default defineComponent({
 
 
 
-    return { studentData, setCsvRows }
+    return { csvRows, studentData, setCsvRows }
   }
 });
 </script>
