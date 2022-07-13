@@ -9,9 +9,9 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Miriam</td>
-          <td>5</td>
+        <tr v-for="(data, name) in studentData" :key="name">
+          <td>{{ name }}</td>
+          <td>{{ data }}</td>
         </tr>
       </tbody>
     </table>
@@ -19,12 +19,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, PropType } from "vue";
 
-defineComponent({
+export default defineComponent({
   props: {
-    rows: { type: Array, required: true },
+    studentData: Object as PropType<Record<string, Record<string, string>[]>>,
   },
-  setup() { }
+  setup(props) {
+  }
 });
 </script>
