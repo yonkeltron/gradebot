@@ -18,5 +18,9 @@
         "purify-ts": "^1.2.2",
         "simple-statistics": "^7.7.5",
         "ts-pattern": "^4.0.5"
+    },
+    "volta": {
+        "node": "16.16.0",
+        "yarn": "1.22.19"
     }
 }
