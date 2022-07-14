@@ -1,10 +1,16 @@
 <template>
   <div>
     <h3 class="text-3xl">{{ studentName }}</h3>
-    <div class="stats shadow">
-      <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
-      <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
-      <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
+    <div class="grid grid-cols-2 gap-5">
+      <div class="stats shadow">
+        <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
+        <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
+        <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
+      </div>
+
+      <section>
+
+      </section>
     </div>
     <p>{{ labRecords }}</p>
   </div>

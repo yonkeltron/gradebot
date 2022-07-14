@@ -1,26 +1,33 @@
 {
-    "private": true,
-    "scripts": {
-        "build": "nuxt build",
-        "dev": "nuxt dev",
-        "generate": "nuxt generate",
-        "preview": "nuxt preview"
-    },
-    "devDependencies": {
-        "@nuxtjs/tailwindcss": "^5.2.0",
-        "@tailwindcss/typography": "^0.5.3",
-        "daisyui": "^2.19.0",
-        "nuxt": "3.0.0-rc.4"
-    },
-    "dependencies": {
-        "@types/lodash": "^4.14.182",
-        "csv-parse": "^5.3.0",
-        "purify-ts": "^1.2.2",
-        "simple-statistics": "^7.7.5",
-        "ts-pattern": "^4.0.5"
-    },
-    "volta": {
-        "node": "16.16.0",
-        "yarn": "1.22.19"
-    }
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "test": "vitest",
+    "test:cov": "vitest run --coverage"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^5.2.0",
+    "@tailwindcss/typography": "^0.5.3",
+    "c8": "^7.11.3",
+    "daisyui": "^2.19.0",
+    "nuxt": "3.0.0-rc.4",
+    "vitest": "^0.18.0"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.182",
+    "chart.js": "^3.8.0",
+    "csv-parse": "^5.3.0",
+    "purify-ts": "^1.2.2",
+    "simple-statistics": "^7.7.5",
+    "ts-pattern": "^4.0.5",
+    "vue-chart-3": "^3.1.8",
+    "zod": "^3.17.3"
+  },
+  "volta": {
+    "node": "16.16.0",
+    "yarn": "1.22.19"
+  }
 }
