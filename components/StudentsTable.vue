@@ -4,7 +4,8 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Mean Score</th>
+          <th>Sample Count</th>
+          <td>Overall Mean</td>
         </tr>
       </thead>
       <tbody>
@@ -14,7 +15,8 @@
               {{ name }}
             </span>
           </td>
-          <td>{{ data }}</td>
+          <td>{{ data.length }} records</td>
+          <td>{{ meanForData(data) }}</td>
         </tr>
       </tbody>
     </table>
@@ -23,7 +25,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import * as ss from 'simple-statistics'
+
 import { ClassLabRecords } from "~~/lib/class_data";
+import { LabRecord } from "~~/lib/lab_record";
 
 export default defineComponent({
   props: {
@@ -40,7 +45,13 @@ export default defineComponent({
       });
     };
 
-    return { selectStudent };
+    const meanForData = (labRecords: LabRecord[]) => {
+      const averages = labRecords.map(labRecord => labRecord['average']);
+
+      return ss.mean(averages).toFixed(2);
+    }
+
+    return { meanForData, selectStudent };
 
   }
 });

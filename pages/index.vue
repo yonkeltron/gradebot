@@ -6,9 +6,11 @@
     <section v-else>
       <div>
         <div class="stats shadow">
-          <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
-          <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
-          <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
+          <StatDisplay stat="max" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="mean" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="min" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="sd" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="var" column="average" :lab-records="labRecords" />
         </div>
       </div>
 
@@ -29,7 +31,6 @@ export default defineComponent({
     const csvRows = ref<RawRow[]>([]);
     const setCsvRows = (rows: RawRow[]) => {
       csvRows.value = rows;
-      console.log(csvRows);
     };
 
     const labRecords = computed(() => csvRows.value.map(labRecordFromRow));
