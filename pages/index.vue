@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="csvRows.length === 0">
+    <div v-if="labRecords.length === 0">
       <DataFileUploader @csv-uploaded="setCsvRows" />
     </div>
     <section v-else class="grid grid-cols-2 gap-3">
@@ -10,9 +10,9 @@
 
       <div>
         <div class="stats shadow">
-          <StatDisplay stat="mean" column="Data" :lab-records="csvRows" />
-          <StatDisplay stat="sd" column="Data" :lab-records="csvRows" />
-          <StatDisplay stat="var" column="Data" :lab-records="csvRows" />
+          <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
+          <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
+          <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
         </div>
       </div>
     </section>
@@ -21,31 +21,35 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
+import { ClassLabRecords } from "~~/lib/class_data";
+import { labRecordFromRow, RawRow } from "~~/lib/lab_record";
 
 export default defineComponent({
   setup() {
-    const csvRows = ref<Record<string, string>[]>([]);
-    const setCsvRows = (rows: Record<string, string>[]) => {
+    const csvRows = ref<RawRow[]>([]);
+    const setCsvRows = (rows: RawRow[]) => {
       csvRows.value = rows;
       console.log(csvRows);
     };
 
-    const studentData = computed(() => csvRows.value.reduce((obj, row) => {
-      const name = row['Name'];
+    const labRecords = computed(() => csvRows.value.map(labRecordFromRow));
+
+    const studentData = computed(() => labRecords.value.reduce((obj, labRecord) => {
+      const name = labRecord.Name;
 
       if (obj[name]) {
-        obj[name].push(row);
+        obj[name].push(labRecord);
       } else {
-        obj[name] = [row];
+        obj[name] = [labRecord];
       }
 
       return obj;
-    }, {} as Record<string, Record<string, string>[]>));
+    }, {} as ClassLabRecords));
 
 
 
 
-    return { csvRows, studentData, setCsvRows }
+    return { labRecords, studentData, setCsvRows }
   }
 });
 </script>

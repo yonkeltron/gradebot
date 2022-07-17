@@ -14,12 +14,13 @@
 import * as ss from 'simple-statistics'
 import { match, P } from 'ts-pattern';
 import { defineComponent, PropType } from "vue";
+import { LabRecord } from '~~/lib/lab_record';
 
 type Stat = 'mean' | 'sd' | 'var';
 
 export default defineComponent({
   props: {
-    labRecords: { type: Array as PropType<Record<string, string>[]>, required: true },
+    labRecords: { type: Array as PropType<LabRecord[]>, required: true },
     column: { type: String, required: true },
     stat: { type: String as PropType<Stat>, required: true },
   },

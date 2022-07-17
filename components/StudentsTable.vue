@@ -23,10 +23,11 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from "vue";
+import { ClassLabRecords } from "~~/lib/class_data";
 
 export default defineComponent({
   props: {
-    studentData: Object as PropType<Record<string, Record<string, string>[]>>,
+    studentData: Object as PropType<ClassLabRecords>,
   },
   setup(props) {
     const selectStudent = (labRecords, studentName) => {

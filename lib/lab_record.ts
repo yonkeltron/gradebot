@@ -12,7 +12,7 @@ export const RawRowSchema = z.object({
   average: z.string().min(1),
 });
 
-export type RawRow = Required<Readonly<z.infer<typeof RawRowSchema>>>;
+export type RawRow = Readonly<Required<z.infer<typeof RawRowSchema>>>;
 
 export const LabRecordSchema = z
   .object({
@@ -28,7 +28,7 @@ export const LabRecordSchema = z
   })
   .strict();
 
-export type LabRecord = Required<Readonly<z.infer<typeof LabRecordSchema>>>;
+export type LabRecord = Readonly<Required<z.infer<typeof LabRecordSchema>>>;
 
 export const labRecordFromRow = z
   .function()
