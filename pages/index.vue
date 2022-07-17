@@ -3,17 +3,17 @@
     <div v-if="labRecords.length === 0">
       <DataFileUploader @csv-uploaded="setCsvRows" />
     </div>
-    <section v-else class="grid grid-cols-2 gap-3">
-      <div>
-        <StudentsTable :student-data="studentData" />
-      </div>
-
+    <section v-else>
       <div>
         <div class="stats shadow">
           <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
           <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
           <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
         </div>
+      </div>
+
+      <div>
+        <StudentsTable :student-data="studentData" />
       </div>
     </section>
   </div>
