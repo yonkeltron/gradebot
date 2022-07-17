@@ -3,17 +3,19 @@
     <div v-if="labRecords.length === 0">
       <DataFileUploader @csv-uploaded="setCsvRows" />
     </div>
-    <section v-else class="grid grid-cols-2 gap-3">
+    <section v-else>
       <div>
-        <StudentsTable :student-data="studentData" />
+        <div class="stats shadow">
+          <StatDisplay stat="max" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="mean" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="min" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="sd" column="average" :lab-records="labRecords" />
+          <StatDisplay stat="var" column="average" :lab-records="labRecords" />
+        </div>
       </div>
 
       <div>
-        <div class="stats shadow">
-          <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
-          <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
-          <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
-        </div>
+        <StudentsTable :student-data="studentData" />
       </div>
     </section>
   </div>
@@ -29,7 +31,6 @@ export default defineComponent({
     const csvRows = ref<RawRow[]>([]);
     const setCsvRows = (rows: RawRow[]) => {
       csvRows.value = rows;
-      console.log(csvRows);
     };
 
     const labRecords = computed(() => csvRows.value.map(labRecordFromRow));

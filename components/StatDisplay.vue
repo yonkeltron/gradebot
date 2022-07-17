@@ -16,7 +16,7 @@ import { match, P } from 'ts-pattern';
 import { defineComponent, PropType } from "vue";
 import { LabRecord } from '~~/lib/lab_record';
 
-type Stat = 'mean' | 'sd' | 'var';
+type Stat = 'mean' | 'sd' | 'var' | 'max' | 'min';
 
 export default defineComponent({
   props: {
@@ -45,8 +45,16 @@ export default defineComponent({
         name = 'Variance'
         return ss.variance(extracted);
       })
+      .with('min', () => {
+        name = 'Minimum'
+        return ss.min(extracted);
+      })
+      .with('max', () => {
+        name = 'Maximum'
+        return ss.max(extracted);
+      })
       .exhaustive()
-      .toFixed(3);
+      .toFixed(2);
 
     return { calculated, extracted, name };
   }
