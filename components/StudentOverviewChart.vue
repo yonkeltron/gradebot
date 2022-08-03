@@ -6,11 +6,10 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import * as ss from 'simple-statistics';
 import { Chart, registerables } from 'chart.js';
 import { LineChart } from 'vue-chart-3';
 
-import { LabRecord } from '~~/lib/lab_record';
+import { LabRecord, computeMean } from '~~/lib/lab_record';
 
 Chart.register(...registerables);
 
@@ -39,13 +38,24 @@ export default defineComponent({
     const makeChartData = (labRecords: LabRecord[]) => {
       const labels = labRecords.map((labRecord) => labRecord.Date);
 
-      const datasets = [
+      const columnDatasets = [
         { column: 'Basic Mechanics', borderColor: '#0000FF' },
         { column: 'Introduction and Purpose', borderColor: '#00FF00' },
         { column: 'Data', borderColor: '#FF0000' },
         { column: 'Results and Data Analysis', borderColor: '#FF00FF' },
         { column: 'Questions and Conclusions', borderColor: '#00FFFF' },
       ].map((spec) => makeDataset(labRecords, spec.column, spec.borderColor));
+
+      const meanDataSet = {
+        label: 'Mean',
+        data: labRecords.map(computeMean),
+        fill: false,
+        borderColor: '#000000',
+        borderDash: [5, 15],
+        tension: 0.1,
+      };
+
+      const datasets = [columnDatasets, meanDataSet].flat();
 
       return { labels, datasets };
     };

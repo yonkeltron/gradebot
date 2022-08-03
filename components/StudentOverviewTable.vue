@@ -27,27 +27,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import * as ss from 'simple-statistics';
 
-import { LabRecord } from '~~/lib/lab_record';
+import { LabRecord, computeMean } from '~~/lib/lab_record';
 
 export default defineComponent({
   props: {
     labRecords: Object as PropType<LabRecord[]>,
   },
   setup() {
-    const computeMean = (labRecord: LabRecord) => {
-      const values: number[] = [
-        'Basic Mechanics',
-        'Introduction and Purpose',
-        'Data',
-        'Results and Data Analysis',
-        'Questions and Conclusions',
-      ].map((column) => labRecord[column]);
-
-      return ss.mean(values);
-    };
-
     return { computeMean };
   },
 });

@@ -1,3 +1,4 @@
+import * as ss from 'simple-statistics';
 import { z } from 'zod';
 
 export const RawRowSchema = z.object({
@@ -56,27 +57,14 @@ export const labRecordFromRow = z
     return labRecord;
   });
 
-// export const labRecordFromRow = (row: Record<string, string>): LabRecord => {
-//   const parsed = LabRecordSchema.safeParse(row);
+export const computeMean = (labRecord: LabRecord) => {
+  const values: number[] = [
+    'Basic Mechanics',
+    'Introduction and Purpose',
+    'Data',
+    'Results and Data Analysis',
+    'Questions and Conclusions',
+  ].map((column) => labRecord[column]);
 
-//   let output: LabRecord;
-
-//   if (parsed.success) {
-//     output = parsed.data as LabRecord;
-//   } else {
-//     output = {
-//       error: true,
-//       Name: 'ERROR',
-//       'Lab Name': 'ERROR',
-//       Date: new Date(),
-//       'Basic Mechanics': -1,
-//       'Introduction and Purpose': -1,
-//       Data: -1,
-//       'Results and Data Analysis': -1,
-//       'Questions and Conclusions': -1,
-//       average: -1,
-//     };
-//   }
-
-//   return output;
-// };
+  return ss.mean(values);
+};
