@@ -11,7 +11,7 @@
       <tbody>
         <tr v-for="(data, name) in studentData" :key="name">
           <td>
-            <span @click="() => selectStudent(data, name)" class="link">
+            <span @click="() => selectStudent(name)" class="link">
               {{ name }}
             </span>
           </td>
@@ -24,35 +24,33 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
-import * as ss from 'simple-statistics'
+import { defineComponent, PropType } from 'vue';
+import * as ss from 'simple-statistics';
 
-import { ClassLabRecords } from "~~/lib/class_data";
-import { LabRecord } from "~~/lib/lab_record";
+import { ClassLabRecords } from '~~/lib/class_data';
+import { LabRecord, computeMean } from '~~/lib/lab_record';
 
 export default defineComponent({
   props: {
     studentData: Object as PropType<ClassLabRecords>,
   },
   setup(props) {
-    const selectStudent = (labRecords, studentName) => {
+    const selectStudent = (studentName) => {
       navigateTo({
         path: '/student',
         query: {
-          labRecords: JSON.stringify(labRecords),
           studentName,
         },
       });
     };
 
     const meanForData = (labRecords: LabRecord[]) => {
-      const averages = labRecords.map(labRecord => labRecord['average']);
+      const averages = labRecords.map(computeMean);
 
       return ss.mean(averages).toFixed(2);
-    }
+    };
 
     return { meanForData, selectStudent };
-
-  }
+  },
 });
 </script>

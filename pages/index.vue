@@ -22,35 +22,26 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-import { ClassLabRecords } from "~~/lib/class_data";
-import { labRecordFromRow, RawRow } from "~~/lib/lab_record";
+import { defineComponent } from 'vue';
+import { useClassDataStore } from '~/stores/class_data_store';
+
+import { assembleClassData, ClassLabRecords } from '~~/lib/class_data';
+import { labRecordFromRow, RawRow } from '~~/lib/lab_record';
 
 export default defineComponent({
   setup() {
+    const classDataStore = useClassDataStore();
     const csvRows = ref<RawRow[]>([]);
     const setCsvRows = (rows: RawRow[]) => {
       csvRows.value = rows;
+      classDataStore.classData = assembleClassData(rows.map(labRecordFromRow));
     };
 
     const labRecords = computed(() => csvRows.value.map(labRecordFromRow));
 
-    const studentData = computed(() => labRecords.value.reduce((obj, labRecord) => {
-      const name = labRecord.Name;
+    const studentData = computed(() => classDataStore.classData);
 
-      if (obj[name]) {
-        obj[name].push(labRecord);
-      } else {
-        obj[name] = [labRecord];
-      }
-
-      return obj;
-    }, {} as ClassLabRecords));
-
-
-
-
-    return { labRecords, studentData, setCsvRows }
-  }
+    return { labRecords, studentData, setCsvRows };
+  },
 });
 </script>

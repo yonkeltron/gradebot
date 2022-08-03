@@ -14,19 +14,24 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useClassDataStore } from '~/stores/class_data_store';
+
+import { LabRecord } from '~/lib/lab_record';
 
 export default defineComponent({
   setup() {
     const route = useRoute();
+    let studentName;
 
-    let labRecords;
-
-    if (typeof route.query.labRecords === 'string') {
-      labRecords = JSON.parse(route.query.labRecords);
+    if (typeof route.query.studentName === 'string') {
+      studentName = route.query.studentName;
     } else {
-      labRecords = JSON.parse(route.query.labRecords[0]);
+      studentName = route.query.studentName[0];
     }
-    const studentName = route.query.studentName;
+
+    const classDataStore = useClassDataStore();
+
+    const labRecords = classDataStore.classData[studentName] as LabRecord[];
 
     return { labRecords, studentName };
   },
