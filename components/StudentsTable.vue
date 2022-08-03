@@ -35,7 +35,7 @@ export default defineComponent({
     studentData: Object as PropType<ClassLabRecords>,
   },
   setup(props) {
-    const selectStudent = (studentName) => {
+    const selectStudent = (studentName: string) => {
       navigateTo({
         path: '/student',
         query: {

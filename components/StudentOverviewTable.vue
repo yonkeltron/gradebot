@@ -32,7 +32,7 @@ import { LabRecord, computeMean } from '~~/lib/lab_record';
 
 export default defineComponent({
   props: {
-    labRecords: Object as PropType<LabRecord[]>,
+    labRecords: Array as PropType<LabRecord[]>,
   },
   setup() {
     return { computeMean };

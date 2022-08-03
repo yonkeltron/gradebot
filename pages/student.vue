@@ -21,17 +21,21 @@ import { LabRecord } from '~/lib/lab_record';
 export default defineComponent({
   setup() {
     const route = useRoute();
-    let studentName;
+    const studentName = computed(() => {
+      let output;
+      if (typeof route.query.studentName === 'string') {
+        output = route.query.studentName;
+      } else {
+        output = route.query.studentName[0];
+      }
 
-    if (typeof route.query.studentName === 'string') {
-      studentName = route.query.studentName;
-    } else {
-      studentName = route.query.studentName[0];
-    }
-
+      return output;
+    });
     const classDataStore = useClassDataStore();
 
-    const labRecords = classDataStore.classData[studentName] as LabRecord[];
+    const labRecords = computed(
+      () => classDataStore.classData[studentName.value]
+    );
 
     return { labRecords, studentName };
   },

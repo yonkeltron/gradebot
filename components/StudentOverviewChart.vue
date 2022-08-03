@@ -15,7 +15,7 @@ Chart.register(...registerables);
 
 export default defineComponent({
   props: {
-    labRecords: Object as PropType<LabRecord[]>,
+    labRecords: Array as PropType<LabRecord[]>,
   },
   components: { LineChart },
   setup(props) {
@@ -31,6 +31,7 @@ export default defineComponent({
         data,
         fill: false,
         borderColor,
+        borderDash: [] as number[],
         tension: 0.1,
       };
     };
@@ -72,7 +73,9 @@ export default defineComponent({
       },
     };
 
-    return { chartData: makeChartData(props.labRecords), options };
+    const chartData = computed(() => makeChartData(props.labRecords));
+
+    return { chartData, options };
   },
 });
 </script>
