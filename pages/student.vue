@@ -4,22 +4,23 @@
     <div class="grid grid-cols-2 gap-5">
       <div class="stats shadow">
         <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
-        <StatDisplay stat="mean" column="Data" :lab-records="labRecords" />
+        <StatDisplay stat="max" column="Data" :lab-records="labRecords" />
         <StatDisplay stat="min" column="Data" :lab-records="labRecords" />
         <StatDisplay stat="sd" column="Data" :lab-records="labRecords" />
         <StatDisplay stat="var" column="Data" :lab-records="labRecords" />
       </div>
 
-      <section>
-
-      </section>
+      <section></section>
     </div>
-    <p>{{ labRecords }}</p>
+
+    <section>
+      <StudentOverviewTable :lab-records="labRecords" />
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
   setup() {
@@ -35,6 +36,6 @@ export default defineComponent({
     const studentName = route.query.studentName;
 
     return { labRecords, studentName };
-  }
+  },
 });
 </script>
