@@ -5,13 +5,7 @@
     </div>
     <section v-else>
       <div>
-        <div class="stats shadow">
-          <StatDisplay stat="max" column="average" :lab-records="labRecords" />
-          <StatDisplay stat="mean" column="average" :lab-records="labRecords" />
-          <StatDisplay stat="min" column="average" :lab-records="labRecords" />
-          <StatDisplay stat="sd" column="average" :lab-records="labRecords" />
-          <StatDisplay stat="var" column="average" :lab-records="labRecords" />
-        </div>
+        <ClassSummaryChart :class-lab-records="labRecords" />
       </div>
 
       <div>

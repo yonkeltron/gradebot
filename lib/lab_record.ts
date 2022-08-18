@@ -22,7 +22,6 @@ export const LabRecordSchema = z
     'Lab Name': z.string().min(3),
     'Questions and Conclusions': z.number().positive().int(),
     'Results and Data Analysis': z.number().positive().int(),
-    average: z.number().positive(),
     Data: z.number().positive().int(),
     Date: z.date(),
     Name: z.string().min(3),
@@ -48,7 +47,6 @@ export const labRecordFromRow = z
         row['Results and Data Analysis'],
         10
       ),
-      average: parseFloat(row.average),
       Data: parseInt(row.Data, 10),
       Date: new Date(Date.parse(row.Date)),
       Name: row.Name,
@@ -57,7 +55,7 @@ export const labRecordFromRow = z
     return labRecord;
   });
 
-export const computeMean = (labRecord: LabRecord) => {
+export const computeMean = (labRecord: LabRecord): number => {
   const values: number[] = [
     'Basic Mechanics',
     'Introduction and Purpose',
