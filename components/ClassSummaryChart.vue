@@ -11,7 +11,6 @@ import { Chart, registerables } from 'chart.js';
 import { LineChart } from 'vue-chart-3';
 
 import { LabRecord } from '~/lib/lab_record';
-import { ClassLabRecords } from '~/lib/class_data';
 import { assembleLabSummaries, makeChartData } from '~~/lib/lab_summary';
 
 Chart.register(...registerables);
@@ -20,8 +19,11 @@ export default defineComponent({
   props: { classLabRecords: Array as PropType<LabRecord[]> },
   components: { LineChart },
   setup(props) {
-    const labSummaries = assembleLabSummaries(props.classLabRecords);
-    const chartData = makeChartData(labSummaries);
+    const chartData = computed(() => {
+      const labSummaries = assembleLabSummaries(props.classLabRecords);
+
+      return makeChartData(labSummaries);
+    });
 
     const options = {
       scales: {
